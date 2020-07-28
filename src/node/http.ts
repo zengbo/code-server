@@ -664,7 +664,7 @@ export class HttpServer {
         e = new HttpError("Not found", HttpCode.NotFound)
       }
       const code = typeof e.code === "number" ? e.code : HttpCode.ServerError
-      logger.debug("Request error", field("url", request.url), field("code", code))
+      logger.debug("Request error", field("url", request.url), field("code", code), field("error", error))
       if (code >= HttpCode.ServerError) {
         logger.error(error.stack)
       }
