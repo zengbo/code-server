@@ -41,22 +41,11 @@ jobs:
           name: npm-package
           path: ./release-npm-package
 
-  linux-amd64:
-    needs: release
+  npm:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Download npm package
-        uses: actions/download-artifact@v2
+      - name: Run ./ci/steps/publish-npm.sh
+        uses: ./ci/images/debian8
         with:
-          name: npm-package
-          path: ./release-npm-package
-      - name: Run ./ci/steps/release-packages.sh
-        uses: ./ci/images/centos7
-        with:
-          args: ./ci/steps/release-packages.sh
-      - name: Upload release artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: release-packages
-          path: ./release-packages
+          args: ./ci/steps/publish-npm.sh
