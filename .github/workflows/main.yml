@@ -20,6 +20,7 @@ jobs:
           args: ./ci/steps/fmt.sh
 
   lint:
+    needs: fmt
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -28,6 +29,7 @@ jobs:
         with:
           args: ./ci/steps/lint.sh
   release:
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -42,6 +44,7 @@ jobs:
           path: ./release-npm-package
 
   npm:
+    needs: release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
